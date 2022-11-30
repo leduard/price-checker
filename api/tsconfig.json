@@ -1,0 +1,29 @@
+{
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "outDir": "./dist",
+        "strict": true,
+        "strictPropertyInitialization": false,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react",
+        "rootDir": "./src",
+        "typeRoots": ["src/@types"],
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "paths": {
+            "@shared/*": ["shared/*"],
+            "@shared-libs/*": ["shared/libs/*"],
+            "@extension/*": ["extension/*"],
+            "dataSource": ["api/src/database"],
+            "@models/*": ["api/src/app/models/*"],
+            "@repositories/*": ["api/src/app/repositories/*"],
+            "@errors/*": ["api/src/app/errors/*"],
+            "@middlewares/*": ["api/src/app/middlewares/*"],
+            "@utils/*": ["api/src/app/utils/*"]
+        }
+    }
+}

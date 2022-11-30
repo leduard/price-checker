@@ -3,8 +3,11 @@ export default function getPageSource(): Promise<string> {
         chrome.tabs.executeScript(
             { code: "document.documentElement.innerHTML" },
             (result) => {
-                const pageSource: string = result.find(Boolean);
+                if (chrome.runtime.lastError?.message) {
+                    console.error(chrome.runtime.lastError?.message);
+                }
 
+                const pageSource: string = result.find(Boolean);
                 resolve(pageSource);
             }
         );

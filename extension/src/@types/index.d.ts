@@ -1,3 +1,5 @@
+/// <reference types="../../../shared/@types" />
+
 declare namespace chrome.runtime {
     export function sendMessage<T>(
         message: { requestName: T },

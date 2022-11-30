@@ -1,0 +1,12 @@
+{
+    "name": "price-checker-shared-libs",
+    "version": "1.0.0",
+    "description": "Shared libraries for price-checker",
+    "author": "Eduardo",
+    "license": "MIT",
+    "devDependencies": {},
+    "dependencies": {
+        "cheerio": "^1.0.0-rc.12",
+        "currency.js": "^2.0.4"
+    }
+}

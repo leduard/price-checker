@@ -1,14 +1,14 @@
 import onTabUpdated from "./onTabUpdated";
 import onRuntimeMessage from "./onRuntimeMessage";
 
-interface Listener {
+interface Listeners {
     [listenerName: string]: {
         create: () => void;
         remove: () => void;
     };
 }
 
-const listenersList: Listener = {
+const listeners: Listeners = {
     onTabUpdated: {
         create: () => chrome.tabs.onUpdated.addListener(onTabUpdated),
         remove: () => chrome.tabs.onUpdated.removeListener(onTabUpdated),
@@ -19,4 +19,4 @@ const listenersList: Listener = {
     },
 };
 
-export default listenersList;
+export default listeners;

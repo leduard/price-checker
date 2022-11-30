@@ -1,6 +1,13 @@
 {
+    "extends": "../tsconfig.json",
     "compilerOptions": {
         "typeRoots": ["@types"],
-        "composite": true
+        "rootDir": ".",
+        "paths": {
+            "@utils/*": ["shared/utils/*"],
+            "@libs/*": ["shared/libs/*"],
+            "@shared-libs/*": ["shared/libs/*"],
+            "@extension/*": ["extension/*"],
+        }
     }
 }

@@ -1,4 +1,4 @@
-export interface Product {
+interface Product {
     id: string;
     name: string;
     url: string;
@@ -8,7 +8,6 @@ export interface Product {
 interface ProductData {
     id: string;
     product: Product;
-    price: number;
     currency: "BRL" | "USD";
     available: boolean;
     priceInfo: PriceInfo;

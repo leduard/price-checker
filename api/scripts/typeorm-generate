@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+
+exec </dev/tty
+
+while true; do
+    read -p "[migration generator] Migration name? " name
+
+    if [ "$name" = "" ]; then
+        echo "Migration name cannot be empty"
+        exit 1
+    fi
+
+    npx typeorm-ts-node-commonjs -d src/database migration:generate -p src/database/migrations/$name
+    break
+
+done
