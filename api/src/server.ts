@@ -25,11 +25,11 @@ app.use((err: Error, _: Request, response: Response, __: NextFunction) => {
         });
     }
 
-    console.error(err);
+    console.error({ name: err.name, message: err.message, stack: err.stack });
     return response.status(500).json({
         status: "error",
         message: "Internal server error.",
-        errors: err.message,
+        errors: [err.message],
     });
 });
 

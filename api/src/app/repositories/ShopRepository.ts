@@ -2,20 +2,18 @@ import dataSource from "dataSource";
 
 import Shop from "@models/Shop";
 
-interface ShopRepository {
-    offset: string;
-    shopName: string;
-    shopHostname?: string;
-}
+export const ShopRepository = dataSource.getRepository(Shop).extend({
+    all(params: { page: string }): Promise<[Shop[], number]> {
+        const { page: pageParam } = params;
+        const page = parseInt(pageParam) || 1;
+        const itemsPerPage = parseInt(process.env.API_ITEMS_PER_PAGE as string);
 
-export const UserRepository = dataSource.getRepository(Shop).extend({
-    all(params: { offset: string }) {
-        const { offset = "0" } = params;
+        const skip = page * itemsPerPage - itemsPerPage;
 
         const shopsQuery = this.createQueryBuilder("shop")
             .where("shop.isActive = :isActive", { isActive: true })
-            .skip(Number(offset))
-            .getMany();
+            .skip(skip)
+            .getManyAndCount();
 
         return shopsQuery;
     },
@@ -28,4 +26,4 @@ export const UserRepository = dataSource.getRepository(Shop).extend({
     },
 });
 
-export default UserRepository;
+export default ShopRepository;

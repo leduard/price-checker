@@ -1,12 +1,11 @@
 import {
-    IsBoolean,
     IsDate,
     IsNotEmpty,
     IsOptional,
     IsString,
     IsUrl,
+    IsUUID,
     Length,
-    ValidateNested,
 } from "class-validator";
 import {
     Entity,
@@ -14,44 +13,38 @@ import {
     Column,
     CreateDateColumn,
     UpdateDateColumn,
+    ManyToOne,
     OneToMany,
 } from "typeorm";
 
-import Product from "./Product";
+import Shop from "./Shop";
+import ProductHistory from "./ProductHistory";
 
 @Entity()
-export default class Shop {
+export default class Product {
     @PrimaryGeneratedColumn("uuid")
     id: string;
-
-    @Column()
-    @IsString()
-    @Length(1, 50)
-    name: string;
 
     @Column({ unique: true })
     @IsUrl()
     @IsNotEmpty()
     url: string;
 
-    @Column({ unique: true })
+    @Column()
     @IsString()
+    @Length(1, 255)
+    name: string;
+
+    @ManyToOne(() => Shop, (shop) => shop.products, {
+        onDelete: "CASCADE",
+        nullable: false,
+    })
     @IsNotEmpty()
-    hostname: string;
+    @IsUUID()
+    shop: Shop;
 
-    @Column({ nullable: true })
-    @IsUrl()
-    @IsNotEmpty()
-    @IsOptional()
-    logo: string;
-
-    @Column({ default: true })
-    @IsBoolean()
-    @IsOptional()
-    isActive: boolean;
-
-    @OneToMany(() => Product, (product) => product.shop)
-    products: Product[];
+    @OneToMany(() => ProductHistory, (history) => history.product)
+    history: ProductHistory[];
 
     @CreateDateColumn({ type: "timestamp with time zone" })
     @IsDate()

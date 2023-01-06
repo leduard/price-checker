@@ -27,6 +27,17 @@ export default class Validator {
                     ? Object.values(error.constraints)
                     : [];
 
+                // handles children (nested objects errors)
+                if (error?.children?.length) {
+                    for (const children of error.children) {
+                        const nestedConstraint = children?.constraints || {};
+
+                        if (!!Object.keys(nestedConstraint)) {
+                            messages.push(...Object.values(nestedConstraint));
+                        }
+                    }
+                }
+
                 constraints.push({ field, messages });
             }
 
